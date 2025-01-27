@@ -114,14 +114,15 @@ void Scene::resetFrameBuffer(const int width, const int height) {
 	_uniqueId = 0;
 
 	// TODO: Set the pixelSize value to be responsive to the screen properties: width and height
-	const int pixelSize = 45;
+	const int pixelSize = std::min(width, height) / 16;
+	const int frameBufferSize = pixelSize * 16;
 
 	// TODO: Place the FrameBuffer in the middle of the screen with the max possible size
 	SDL_Rect frameBufferRect{
-		.x = 400,
-		.y = 50,
-		.w = 600,
-		.h = 600,
+		.x = (width - frameBufferSize) / 2,
+		.y = (height - frameBufferSize) / 2,
+		.w = frameBufferSize,
+		.h = frameBufferSize,
 	};
 
 	for (int i = 0; i < _frameBuffer.size(); ++i) {
@@ -129,8 +130,8 @@ void Scene::resetFrameBuffer(const int width, const int height) {
 
 		// TODO: Find each pixelPosition from pixel coordinates and framebuffer properties
 		const SDL_Point pixelPosition{
-			.x = pixelCoords.x * 30,
-			.y = pixelCoords.y * 30,
+			.x = frameBufferRect.x + pixelCoords.x * pixelSize,
+			.y = frameBufferRect.y + pixelCoords.y * pixelSize,
 		};
 
 		const SDL_Rect pixelRect = {
@@ -142,11 +143,6 @@ void Scene::resetFrameBuffer(const int width, const int height) {
 
 		addEntity(Entity(consumeId(), "Pixel", pixelRect, _frameBuffer.at(i)));
 	}
-
-	// TODO: You can delete or comment this lines to hide the frameBuffer rectangle
-	Entity frameBufferEntity(consumeId(), "FrameBuffer", frameBufferRect, ImColor{ 255,255,255,255 });
-	frameBufferEntity.setFilled(false);
-	addEntity(std::move(frameBufferEntity));
 }
 
 void Scene::initializeFrameBuffer() {
