@@ -114,11 +114,14 @@ void Scene::resetFrameBuffer(const int width, const int height) {
 	_uniqueId = 0;
 
 	// TODO: Set the pixelSize value to be responsive to the screen properties: width and height
+	//Calculo la mida d'un píxel dividint per el número de píxels
 	const int pixelSize = std::min(width, height) / 16;
+	//Calculo la mida del frame buffer multiplicant per 16 
 	const int frameBufferSize = pixelSize * 16;
 
 	// TODO: Place the FrameBuffer in the middle of the screen with the max possible size
 	SDL_Rect frameBufferRect{
+		//Resto a l'amplada la mida del frame buffer per saber l'espai sobrant i ho divideixo entre 2 per per a repartir-lo en dues parts ja sigui d'amplada o alçada
 		.x = (width - frameBufferSize) / 2,
 		.y = (height - frameBufferSize) / 2,
 		.w = frameBufferSize,
