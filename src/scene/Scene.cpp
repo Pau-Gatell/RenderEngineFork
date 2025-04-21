@@ -129,14 +129,14 @@ void Scene::resetFrameBuffer(const int width, const int height) {
 	float final = 0.5f;
 	int num_divisions_x = 10;
 
-	float differencial = (final - initial) / (float)num_divisions_x; //
+	float differencial = (final - initial) / (float)num_divisions_x; //Trobes el diferencial restant el número final (0.5) del inicial (1) i dividiint entre número total de divisions, en aquest cas 10
 	// TODO: Set the proper frame buffer size
-	const int frameBufferSize = width * height;
+	const int frameBufferSize = width * height; //Per trobar la mida del frame buffer multipliques els píxels d'amplada per els d'alçada
 	for (int i = 0; i < frameBufferSize; ++i) {
 		// TODO: Find the pixel coordinates for each index
 		const SDL_Point pixelCoords{
-			.x = i % width,
-			.y = i / width,
+			.x = i % width, // Agafes el mòdul de la divió de l'índex per l' amplada per conseguir la columna del píxel
+			.y = i / width, // Agafes l'índex i el divideixes entre l'amplada per conseguir la fila del píxel
 		};
 		int division_x = num_divisions_x * pixelCoords.x / width;
 
@@ -144,10 +144,10 @@ void Scene::resetFrameBuffer(const int width, const int height) {
 		int red = static_cast<int>(255.f * colorPercentage);
 		
 		ImColor color{
-			 red,
-			 0,
-			 0,
-			 255,
+			 red, //Valor vermell que s'ha calculat segons el gradient
+			 0, //Valor del color verd = 0
+			 0, //Valor del color blau = 0
+			 255, // Opacitat al 100%
 		};
 
 		pixelData[i] = static_cast<ImU32>(color);
