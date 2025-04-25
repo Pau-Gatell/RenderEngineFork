@@ -138,16 +138,16 @@ void Scene::resetFrameBuffer(const int width, const int height) {
 			.x = i % width, // Agafes el mòdul de la divió de l'índex per l' amplada per conseguir la columna del píxel
 			.y = i / width, // Agafes l'índex i el divideixes entre l'amplada per conseguir la fila del píxel
 		};
-		int division_x = num_divisions_x * pixelCoords.x / width;
+		int division_x = num_divisions_x * pixelCoords.x / width; //Mires en quin tros està el píxel segons la seva posició horitzontal.
 
-		float colorPercentage = initial + differencial * (float)division_x;
+		float colorPercentage = initial + differencial * (float)division_x; //Calcula quant vermell li toca al píxel segons la seva divisió.
 		int red = static_cast<int>(255.f * colorPercentage);
 		
 		ImColor color{
 			 red, //Valor vermell que s'ha calculat segons el gradient
 			 0, //Valor del color verd = 0
 			 0, //Valor del color blau = 0
-			 255, // Opacitat al 100%
+			 255, //Opacitat al 100%
 		};
 
 		pixelData[i] = static_cast<ImU32>(color);
